@@ -1,0 +1,17 @@
+<p-table [columns]="cols" [value]="teachers" 
+selectionMode="multiple" [(selection)]="selectedTeacher">
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th *ngFor="let col of columns">
+                {{col.header}}
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr (click)="selected(rowData)" [pSelectableRow]="rowData">
+            <td *ngFor="let col of columns">
+                {{rowData[col.header]}}
+            </td>
+        </tr>
+    </ng-template>
+</p-table>

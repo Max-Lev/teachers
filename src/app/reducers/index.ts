@@ -1,20 +1,30 @@
 import {
   ActionReducer,
-  ActionReducerMap, 
+  ActionReducerMap,
   createFeatureSelector,
   createSelector,
-  MetaReducer
+  MetaReducer,
+  combineReducers
 } from '@ngrx/store';
 import { environment } from '../../environments/environment';
-import { TeachersState, TeachersReducer } from './teachers/teachers-reducer.reducer';
+import { LoadTeachersState, LoadTeachersReducer } from './teachers/load-teachers-reducer.reducer';
+import { RouterReducerState, routerReducer } from '@ngrx/router-store';
+import { RouterStateUrl } from './router/router-serializer';
+import { StudentsState } from './studetnts/students.actions';
+import { StudetnsReducer } from './studetnts/students.reducer';
 
 export interface AppState {
-  teachersState: TeachersState;
+  RouterState: RouterReducerState<RouterStateUrl>;
+  TeachersState: LoadTeachersState;
+  StudentsState: StudentsState;
 }
 
 export const AppReducers: ActionReducerMap<AppState> = {
-  teachersState: TeachersReducer
+  RouterState: routerReducer,
+  TeachersState: LoadTeachersReducer,
+  StudentsState: StudetnsReducer
 };
 
 
 export const metaReducers: MetaReducer<AppState>[] = !environment.production ? [] : [];
+

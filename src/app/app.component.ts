@@ -1,12 +1,11 @@
 import { Component, Inject, AfterViewInit, Injectable, ViewChild } from '@angular/core';
-import { ApiService } from './shared/api.service';
-import { Teacher } from './models/teacher.model';
-import { TeacherService } from './shared/teacher.service';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { routesNav, RoutesNav } from './routes/routes';
-
+import { AppState } from './reducers';
+import { Store, select } from '@ngrx/store';
+import { RouterState } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -19,28 +18,32 @@ export class AppComponent implements AfterViewInit {
 
   routesNav: RoutesNav[] = routesNav;
 
-  fillerContent = [];
-
   private _mobileQueryListener: () => void;
 
   mobileMenuActive: boolean;
- 
+
   @ViewChild('snav') snav: MatSidenav;
 
-  // , public teacherService: TeacherService
-  constructor(private apiService: ApiService, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
-    this.apiService.getTeachersHandler();
+  constructor(private store: Store<AppState>, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
+    this.routerState$();
   };
 
   ngAfterViewInit(): void {
-    this.apiService.getTeacherName();
+
   };
 
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
+  };
+
+  routerState$() {
+    this.store.pipe(select('RouterState')).subscribe((state: RouterState) => {
+      //   console.log('RouterState: ', state);
+      return state;
+    });
   };
 
   onMobileMenuButton(event) {

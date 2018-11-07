@@ -1,0 +1,23 @@
+[
+    {
+        "Name": "Max",
+        "Location": "IL",
+        "Occupation": "Web",
+        "Students": [
+            "5bdb305d122efdc685050f3c",
+            "5bdb305dc9fdca8552f9b38f",
+            "5bdb305d576ca6cd2191a051"
+        ]
+    },
+    {
+        "Name": "Mahwy",
+        "Location": "IL",
+        "Occupation": "Work",
+        "Students": [
+            "5bdb305d0e26ce88a32373cf",
+            "5bdb305dfa7df16be0a68fda",
+            "5bdb305d512e23bab59707f8",
+            "5bdb305d95c976a020128522"
+        ]
+    }
+]

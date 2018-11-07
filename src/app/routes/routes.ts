@@ -10,5 +10,5 @@ export const routesNav: RoutesNav[] = [
     {
         path: 'students',
         name: 'Students'
-    },
+    }
 ];
