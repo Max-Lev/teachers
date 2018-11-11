@@ -9,7 +9,7 @@ export interface LoadTeachersState {
 
 export const initialState: LoadTeachersState = {
   type: LoadTeachersActionTypes.LoadTeachersAction,
-  payload: []
+  payload: [{ name: 'Max' }]
 };
 
 export function LoadTeachersReducer(state = new LoadTeachersInitial(), action: LoadTeachersReducerActions): LoadTeachersState {

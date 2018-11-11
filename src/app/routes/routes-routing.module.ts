@@ -3,6 +3,9 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
   {
+    path: '', redirectTo: 'teachers', pathMatch: 'full'
+  },
+  {
     path: 'teachers', loadChildren: 'src/app/routing-modules/teachers/teachers.module#TeachersModule'
   },
   {
@@ -14,7 +17,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { useHash: false })],
   exports: [RouterModule]
 })
 export class RoutesRoutingModule { }

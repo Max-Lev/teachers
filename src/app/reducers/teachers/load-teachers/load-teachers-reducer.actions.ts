@@ -9,7 +9,7 @@ export enum LoadTeachersActionTypes {
 
 export class LoadTeachersInitial implements Action {
   readonly type = LoadTeachersActionTypes.InitialTeachersState;
-  payload: any;
+  payload: any[] = [];
   constructor() {
     this.payload = [];
   }
@@ -23,7 +23,7 @@ export class LoadTeacherAction implements Action {
 }
 export class LoadTeacherSuccess implements Action {
   readonly type = LoadTeachersActionTypes.LoadTeachersSuccessAction;
-  payload: any;
+  payload: any[] = [];
   action: string;
   constructor(payload: any) {
     this.payload = payload;

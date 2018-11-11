@@ -6,7 +6,6 @@ import { ApiService } from './shared/api.service';
 import { TeachersApiService } from './shared/teachers-api.service';
 import { Teacher } from './models/teacher.model';
 import { TeacherService } from './shared/teacher.service';
-import { TeacherCardComponent } from './components/teacher-card/teacher-card.component';
 import { StoreModule } from '@ngrx/store';
 import { AppReducers, metaReducers } from './reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -19,11 +18,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { LayoutModule } from './layout/layout.module';
 import { EffectsModule } from '@ngrx/effects';
 import { TeachersEffects } from './reducers/teachers/effects/teachers.effects';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    TeacherCardComponent,
+    AppComponent
   ],
   imports: [
     LayoutModule,
@@ -47,6 +46,7 @@ import { TeachersEffects } from './reducers/teachers/effects/teachers.effects';
     ApiService,
     TeachersApiService,
     TeacherService,
+    // { provide: LocationStrategy, useClass: HashLocationStrategy }
   ],
   bootstrap: [AppComponent]
 })

@@ -1,8 +1,16 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, EventEmitter, Output } from '@angular/core';
+import { AppState } from 'src/app/reducers';
+import { Store, select } from '@ngrx/store';
+import { SelectedTeachersState, SelectedTeachersSelected } from 'src/app/reducers/teachers/select-teachers/selec-teacher.actions';
+import { getSelectedTeachersSelector } from 'src/app/reducers/selectors/selected-teacher.selector';
+import { SortAscState, SortState, SortActionsEnum, SortDscState } from 'src/app/reducers/teachers/sort/sort.reducer';
+
+
 export interface Teacher {
   Name: string;
   Location: string;
   Occupation: string;
+  Students?: any;
 }
 
 @Component({
@@ -12,30 +20,63 @@ export interface Teacher {
 })
 export class GridComponent implements OnInit, OnChanges {
 
-  cols: any = [
-    { header: 'Name' },
-    { header: 'Location' },
-    { header: 'Occupation' }
-  ];
-
   @Input() teachers?: Teacher[] = [];
 
   selectedTeacher: Teacher;
 
-  constructor() { }
+  @Output() selectedEmitter: EventEmitter<Teacher> = new EventEmitter();
 
-  ngOnInit() {
+  cols: any[] = [
+    { header: 'Name', sort: false },
+    { header: 'Location', sort: false },
+    { header: 'Occupation', sort: false }
+  ];
 
-  }
+  prevColSort: number = 0;
+
+  prevColName: string = null;
+
+  orderType: string;
+
+  constructor(private store: Store<AppState>) {
+
+    this.store.pipe(select(getSelectedTeachersSelector)).subscribe((state: SelectedTeachersState) => {
+      console.log('getSelectedTeachersSelector: ', state);
+    });
+
+    this.store.pipe(select('SortState')).subscribe((state: SortState) => {
+      console.log('SortState: ', state);
+      this.orderType = state.type;
+      this.teachers = [...state.payload];
+    });
+
+  };
+
+  ngOnInit() { };
 
   ngOnChanges(): void {
-    // console.log(this.teachers)
-  }
+    console.log(this.teachers);
+  };
+
+  customSort(event: Event) {
+    console.log('$event: ', event)
+  };
 
   selected(teacher: Teacher) {
-    // console.log(teacher)
-    console.log('selectedTeacher: ', this.selectedTeacher);
-  }
+    this.store.dispatch(new SelectedTeachersSelected(this.selectedTeacher));
+  };
+
+  sort(colName: any, dataSource: Teacher[]) {
+    if (this.orderType === SortActionsEnum.SORT_DEFAULT || this.orderType === SortActionsEnum.SORT_DSC) {
+      this.store.dispatch(new SortAscState(colName, dataSource));
+    } else {
+      this.store.dispatch(new SortDscState(colName, dataSource));
+    }
+
+
+  };
+
+
 
 
 

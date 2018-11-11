@@ -1,3 +1,9 @@
-<p>
-  teacher-card works!
-</p>
+<form [formGroup]="teachersForm" novalidate>
+  <div>
+    <h3>Teacher Name</h3>
+    <span class="ui-float-label">
+      <input formControlName="teacherName" id="float-input" type="text" size="30" pInputText>
+      <label for="float-input">Username</label>
+    </span>
+  </div>
+</form>

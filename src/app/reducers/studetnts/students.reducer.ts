@@ -1,6 +1,6 @@
 import { StudentsState, StudentsInitialAction, StudentsActionEnum, StudentsActions } from './students.actions';
 
-export const StudetnsReducer = (state: StudentsState = new StudentsInitialAction(), action: StudentsActions): StudentsState => {
+export function StudetnsReducer(state: StudentsState = new StudentsInitialAction(), action: StudentsActions): StudentsState {
     switch (action.type) {
         case StudentsActionEnum.STUDENTS_LOAD_ACTION:
             const students_load = {

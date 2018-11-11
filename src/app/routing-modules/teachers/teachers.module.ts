@@ -5,12 +5,16 @@ import { Routes, RouterModule } from '@angular/router';
 import { GridComponent } from 'src/app/components/grid/grid.component';
 import { TableModule } from 'primeng/table';
 import { HttpClientModule } from '@angular/common/http';
-import { EffectsModule } from '@ngrx/effects';
-import { TeachersEffects } from 'src/app/reducers/teachers/effects/teachers.effects';
-
+import { TeacherCardComponent } from 'src/app/components/teacher-card/teacher-card.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { InputTextModule } from 'primeng/inputtext';
 const routes: Routes = [
   {
     path: '', component: TeachersComponent
+  },
+  {
+    // path: '**', pathMatch: 'full'
+    path: '**', redirectTo: 'teachers', pathMatch: 'full'
   }
 ];
 
@@ -20,14 +24,17 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     TableModule,
     HttpClientModule,
-    // EffectsModule.forRoot([TeachersEffects]),
+    FormsModule,
+    ReactiveFormsModule,
+    InputTextModule
   ],
   declarations: [
     TeachersComponent,
-    GridComponent
+    GridComponent,
+    TeacherCardComponent
   ],
   providers: [
-    
+
   ]
 })
 export class TeachersModule { }
