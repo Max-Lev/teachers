@@ -1,4 +1,4 @@
-import { Component, Inject, AfterViewInit, Injectable, ViewChild } from '@angular/core';
+import { Component, Inject, AfterViewInit, Injectable, ViewChild, OnInit } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
@@ -12,7 +12,7 @@ import { RouterState } from '@angular/router';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements AfterViewInit {
+export class AppComponent implements AfterViewInit, OnInit {
 
   mobileQuery: MediaQueryList;
 
@@ -29,10 +29,15 @@ export class AppComponent implements AfterViewInit {
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
     this.routerState$();
+
   };
 
-  ngAfterViewInit(): void {
+  ngOnInit(): void {
+    
+  }
 
+  ngAfterViewInit(): void {
+    
   };
 
   ngOnDestroy(): void {

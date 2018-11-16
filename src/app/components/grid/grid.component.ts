@@ -54,25 +54,19 @@ export class GridComponent implements OnInit, OnChanges {
 
   ngOnInit() { };
 
-  ngOnChanges(): void {
-    console.log(this.teachers);
-  };
-
-  customSort(event: Event) {
-    console.log('$event: ', event)
-  };
+  ngOnChanges(): void { };
 
   selected(teacher: Teacher) {
     this.store.dispatch(new SelectedTeachersSelected(this.selectedTeacher));
   };
 
   sort(colName: any, dataSource: Teacher[]) {
+
     if (this.orderType === SortActionsEnum.SORT_DEFAULT || this.orderType === SortActionsEnum.SORT_DSC) {
       this.store.dispatch(new SortAscState(colName, dataSource));
     } else {
       this.store.dispatch(new SortDscState(colName, dataSource));
     }
-
 
   };
 

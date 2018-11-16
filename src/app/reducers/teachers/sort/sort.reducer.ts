@@ -8,13 +8,13 @@ export enum SortActionsEnum {
 
 export interface SortAction extends Action {
   type: string;
-  column: string;
+  column: any;
   payload: any;
 }
 
 export interface SortState {
   type: string;
-  column: string;
+  column: any;
   payload: any;
 };
 
@@ -25,7 +25,7 @@ export const SortDefaultState: SortState = {
 };
 export class SortAscState implements SortState {
   readonly type: string = SortActionsEnum.SORT_ASC;
-  column: string = '';
+  column: any;
   payload: any = [];
   constructor(column: string, payload: any) {
     this.column = column;
@@ -34,7 +34,7 @@ export class SortAscState implements SortState {
 };
 export class SortDscState implements SortState {
   readonly type: string = SortActionsEnum.SORT_DSC;
-  column: string = '';
+  column: any;
   payload: any = [];
   constructor(column: string, payload: any) {
     this.column = column;
@@ -43,24 +43,23 @@ export class SortDscState implements SortState {
 };
 
 export function SortReducer(state = SortDefaultState, action: SortAction): SortState {
+  
   switch (action.type) {
     case SortActionsEnum.SORT_ASC:
       const asc = {
         ...action, ...state,
         column: action.column,
         type: action.type,
-        payload: sort(action, action.payload)
+        payload: sort(action)
       }
-      console.log('asc: ', asc);
       return asc;
     case SortActionsEnum.SORT_DSC:
       const dsc = {
         ...action, ...state,
         column: action.column,
         type: action.type,
-        payload: sort(action, action.payload)
+        payload: sort(action)
       }
-      console.log('dsc: ', dsc);
       return dsc;
     default:
       return state;
@@ -69,29 +68,29 @@ export function SortReducer(state = SortDefaultState, action: SortAction): SortS
 
 let prevColName: string = null;
 let prevColSort: number = 0;
-function sort(action: any, payload: any[]): any[] {
-  console.log(prevColName, prevColSort)
-  const dataSource: any[] = [...payload];
+function sort(action: SortAction): any[] {
+
+  const dataSource: any[] = [...action.payload];
 
   if (prevColName === null) {
-    debugger
+
     prevColName = action.column.header;
     prevColSort = 1;
     sortingMode(dataSource, action);
   } else {
     if (prevColName === action.column.header) {
       if (prevColSort === 0) {
-        debugger
+
         prevColSort = 1;
         sortingMode(dataSource, action);
       }
       else if (prevColSort === 1) {
-        debugger
+
         prevColSort = 0;
         sortingMode(dataSource, action);
       }
     } else {
-      debugger
+
       prevColName = action.column.header;
       prevColSort = 1;
       sortingMode(dataSource, action);

@@ -2,20 +2,23 @@ import { LoadTeachersState } from '../teachers/load-teachers/load-teachers-reduc
 import { StudentsState } from '../studetnts/students.actions';
 import { createSelector } from '@ngrx/store';
 import { AppState } from '..';
+import { SortState } from '../teachers/sort/sort.reducer';
 
 export interface TeachersStudentsState {
     teachers: LoadTeachersState;
-    students: StudentsState;
+    students?: StudentsState;
+    sorting: SortState;
 }
 
 //prop selector
 export const teachers = (state: AppState) => state.TeachersState;
-
 export const students = (state: AppState) => state.StudentsState;
+export const sorting = (state: AppState) => state.SortState;
 
 export const teachers_students_selector = createSelector(
-    teachers, students, (teachers: LoadTeachersState, students: StudentsState): LoadTeachersState => {
-        
+    teachers, students, sorting,
+    (teachers: LoadTeachersState, students: StudentsState, sorting: SortState): TeachersStudentsState => {
+
         if (teachers.payload.length === 0) return;
 
         const ids: string[][] = teachers.payload.map(item => item.Students);
@@ -37,7 +40,10 @@ export const teachers_students_selector = createSelector(
             })
         });
 
-        return teachers_students_list;
+        return {
+            teachers: teachers_students_list,
+            sorting: sorting
+        };
     });
 
 

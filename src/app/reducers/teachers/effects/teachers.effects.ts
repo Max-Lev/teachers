@@ -25,7 +25,6 @@ export class TeachersEffects {
   teachers$$: Subject<any> = new Subject();
   teachers$(): Observable<Action> {
     ofType(LoadTeachersActionTypes.LoadTeachersAction);
-    // return this.http.get('http://localhost:3000/teachers').pipe(
     return this.http.get(`${environment.apiUrl}/teachers`).pipe(
       map(data => (new LoadTeacherSuccess(data))),
       catchError(() => of({ type: LoadTeachersActionTypes.LoadTeacherFailAction }))
@@ -41,7 +40,6 @@ export class TeachersEffects {
   students$(): Observable<Action> {
     ofType(StudentsActionEnum.STUDENTS_LOAD_ACTION);
     return this.http.get(`${environment.apiUrl}`).pipe(debounceTime(1000)).pipe(
-      // return this.http.get('http://localhost:3000').pipe(debounceTime(1000)).pipe(
       map(info => (new StudentsLoadSuccessAction(info))),
       catchError(() => of({ type: StudentsActionEnum.STUDENTS_LOAD_FAIL }))
     );

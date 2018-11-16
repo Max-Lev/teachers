@@ -1,7 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { AppState } from 'src/app/reducers';
-import { Store, select } from '@ngrx/store';
-import { LoadTeachersState } from 'src/app/reducers/teachers/load-teachers/load-teachers-reducer.reducer';
+import { Component, OnInit, Inject, InjectionToken } from '@angular/core';
 
 @Component({
   selector: 'app-students',
@@ -10,13 +7,12 @@ import { LoadTeachersState } from 'src/app/reducers/teachers/load-teachers/load-
 })
 export class StudentsComponent implements OnInit {
 
-  constructor(private store: Store<AppState>) {
-    // this.store.pipe(select('TeachersState')).subscribe((state: LoadTeachersState) => {
-    //   console.log(state)
-    // })
-  }
+  constructor() {
+
+  };
 
   ngOnInit() {
-  }
+
+  };
 
 }

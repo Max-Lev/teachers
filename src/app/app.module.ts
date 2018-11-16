@@ -19,10 +19,12 @@ import { LayoutModule } from './layout/layout.module';
 import { EffectsModule } from '@ngrx/effects';
 import { TeachersEffects } from './reducers/teachers/effects/teachers.effects';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NotFoundComponent
   ],
   imports: [
     LayoutModule,
