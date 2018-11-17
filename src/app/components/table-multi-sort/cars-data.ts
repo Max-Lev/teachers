@@ -9,12 +9,12 @@ export const carsData = [
         "brand": "Audi",
         "year": 2011,
         "color": "Black",
-        "name": "i"
+        "name": "c"
     },
     {
         "brand": "Renault",
         "year": 2005,
-        "color": "Gray",
+        "color": "Alfa",
         "name": "j"
     },
     {
@@ -25,7 +25,7 @@ export const carsData = [
     },
     {
         "brand": "Mercedes",
-        "year": 1995,
+        "year": 2003,
         "color": "Orange",
         "name": "b"
     },
@@ -42,7 +42,7 @@ export const carsData = [
         "name": "d"
     },
     {
-        "brand": "Jaguar",
+        "brand": "Audi",
         "year": 2013,
         "color": "Orange",
         "name": "e"
@@ -55,7 +55,7 @@ export const carsData = [
     },
     {
         "brand": "Fiat",
-        "year": 2013,
+        "year": 2011,
         "color": "Red",
         "name": "g"
     }

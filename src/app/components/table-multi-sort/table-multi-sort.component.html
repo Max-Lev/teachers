@@ -4,7 +4,7 @@
 <p-table
 [customSort]="true"
 (sortFunction)="customSortHandler($event)"  
-[sortMode]="sortType"
+sortMode="multiple"
 [columns]="cols" [value]="cars">
   <ng-template pTemplate="header" let-columns>
     <tr>

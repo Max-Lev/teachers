@@ -1,9 +1,7 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { carsData } from './cars-data';
 import { Table } from 'primeng/table';
-import { Subject } from 'rxjs';
 import { SortMeta } from 'primeng/components/common/sortmeta';
-import { async } from '@angular/core/testing';
 
 export interface SortEvent {
   data?: any[];
@@ -49,29 +47,14 @@ export class TableMultiSortComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
 
-    // this.table.onSort.subscribe((s) => {
-    //   console.log('onSort$: ', s);
-    // });
-
-    // this.table.sortFunction.subscribe((s) => {
-    //   console.log('s: ', s);
-    //   console.log('sort order: ', this.table.sortOrder);
-    // })
-    // this.table.onSort.subscribe((s) => {
-    //   console.log('table: ', this.table)
-    // })
-
-
   };
-  sortTypeEnum = {
-    single: 'single',
-    multiple: 'multiple'
-  };
-  sortType = this.sortTypeEnum.multiple;
-  // customSortHandler(sortEvent: SortMeta) {
+
+  // _multipleSort(sortEvent: SortEvent) {
+  //   this._singleSort(sortEvent);
+  // };
+
   customSortHandler(sortEvent: SortEvent) {
     console.log('customSortHandler - sortMetaEvent: ', sortEvent);
-
     if (sortEvent.multiSortMeta.length === 1) {
       this._singleSort(sortEvent);
     }
@@ -79,23 +62,44 @@ export class TableMultiSortComponent implements OnInit, AfterViewInit {
       this._multipleSort(sortEvent)
     }
   };
-  // _multipleSort(sortEvent: SortEvent) {
-  //   this._singleSort(sortEvent);
-  // };
 
-  
   _multipleSort(sortEvent: SortEvent) {
-    console.log('multiple fn: ')
-    const f1 = sortEvent.multiSortMeta[0];
-    const f2 = sortEvent.multiSortMeta[1];
-    // this._singleSort(sortEvent);
-    sortEvent.multiSortMeta.map(cols => {
-      console.log(cols);
-      this._singleSort(sortEvent);
+    console.log('multiple fn: ', sortEvent)
+    sortEvent.multiSortMeta.map(col => {
+      this._singleSortByField(col, sortEvent.data)
     });
+  };
+  _singleSortByField({ field, order }, data: any[]) {
+
+    if (order === 1) {
+      console.log('1: ', field, order)
+      data.sort((a, b) => {
+        debugger
+        if (typeof a == 'string' || a instanceof String) {
+          if (a.localeCompare && (a != b)) {
+            return a[field].localeCompare(b[field]);
+          }
+        } else {
+          return (a[field] > b[field]) ? 1 : -1;
+        }
+      })
+    } else if (order === -1) {
+      console.log('-1: ', field, order)
+      data.sort((a, b) => {
+        debugger
+        if (typeof a == 'string' || a instanceof String) {
+          if (a.localeCompare && (a != b)) {
+            return a[field].localeCompare(a[field]);
+          }
+        } else {
+          return (a[field] < b[field]) ? 1 : -1;
+        }
+      })
+    }
 
   };
 
+  ///////////////////
   _singleSort(sortEvent: SortEvent): any[] {
     const field = sortEvent.multiSortMeta[0].field;
     const order = sortEvent.multiSortMeta[0].order;
@@ -106,14 +110,14 @@ export class TableMultiSortComponent implements OnInit, AfterViewInit {
   asc(data: any[], field: string): any[] {
     console.log('data asc: ', data, field)
     return data.sort((a, b) => {
-      return (a[field] > b[field]) ? 1 : -1;
+      return (a[field].toString() > b[field].toString()) ? 1 : -1;
     });
   };
 
   dsc(data: any[], field: string): any[] {
     console.log('data dsc: ', data, field)
     return data.sort((a, b) => {
-      return (a[field] < b[field]) ? 1 : -1;
+      return (a[field].toString() < b[field].toString()) ? 1 : -1;
     });
   };
 
