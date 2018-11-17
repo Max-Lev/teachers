@@ -54,7 +54,6 @@ export class TableMultiSortComponent implements OnInit, AfterViewInit {
   // };
 
   customSortHandler(sortEvent: SortEvent) {
-    console.log('customSortHandler - sortMetaEvent: ', sortEvent);
     if (sortEvent.multiSortMeta.length === 1) {
       this._singleSort(sortEvent);
     }
@@ -82,19 +81,21 @@ export class TableMultiSortComponent implements OnInit, AfterViewInit {
         } else {
           return (a[field] > b[field]) ? 1 : -1;
         }
-      })
+      });
+
     } else if (order === -1) {
       console.log('-1: ', field, order)
       data.sort((a, b) => {
         debugger
         if (typeof a == 'string' || a instanceof String) {
           if (a.localeCompare && (a != b)) {
-            return a[field].localeCompare(a[field]);
+            return a[field].localeCompare(b[field]);
           }
         } else {
           return (a[field] < b[field]) ? 1 : -1;
         }
-      })
+      });
+
     }
 
   };
@@ -123,68 +124,5 @@ export class TableMultiSortComponent implements OnInit, AfterViewInit {
 
 
 };
-
-
-    // // console.log(this.table);
-    // sortEvent.data.sort((data1, data2) => {
-    //   let value1: string = data1[sortEvent.multiSortMeta[0].field];
-    //   let fieldA = sortEvent.multiSortMeta[0].field;
-    //   let fieldB = null;
-    //   let value2 = null;
-    //   let result = null;
-
-    //   if (this.table.multiSortMeta.length > 1) {
-    //     value2 = data2[sortEvent.multiSortMeta[1].field];
-    //     fieldB = sortEvent.multiSortMeta[1].field;
-    //   }
-    //   if (value1 == null && value2 != null) {
-    //     debugger;
-    //     sortEvent.data = this._singleSort(sortEvent);
-    //     result = -1;
-    //   }
-    //   else if (value1 != null && value2 == null) {
-    //     // debugger;
-    //     sortEvent.data = this._singleSort(sortEvent);
-    //     result = 1;
-    //   }
-    //   // else if (value1 == null && value2 == null) {
-    //   //   debugger;
-    //   //   result = 0;
-    //   // }
-    //   // else if (typeof value1 === 'string' && typeof value2 === 'string') {
-    //   //   debugger;
-    //   //   result = value1.localeCompare(value2);
-    //   // }
-    //   // else {
-    //   //   debugger
-    //   //   result = (value1 < value2) ? -1 : (value1 > value2) ? 1 : 0;
-    //   // }
-    //   else {
-    //     sortEvent.data = this._multipleSort(sortEvent);
-    //   }
-
-    //   return result;
-    // });
-
-
-// event.data.sort((data1, data2) => {
-//   let value1 = data1[event.field];
-//   let value2 = data2[event.field];
-//   let result = null;
-//   debugger;
-
-//   if (value1 == null && value2 != null)
-//     result = -1;
-//   else if (value1 != null && value2 == null)
-//     result = 1;
-//   else if (value1 == null && value2 == null)
-//     result = 0;
-//   else if (typeof value1 === 'string' && typeof value2 === 'string')
-//     result = value1.localeCompare(value2);
-//   else
-//     result = (value1 < value2) ? -1 : (value1 > value2) ? 1 : 0;
-
-//   return (event.order * result);
-// });
 
 
